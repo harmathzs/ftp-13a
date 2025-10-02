@@ -10,7 +10,9 @@ function App() {
   return (
     <>
       <h1>Parent, but this is my child:</h1>
-      <FunctionComponent />
+      <FunctionComponent fruit="apple" callback={console.log}>
+        <p>child paragraph</p>
+      </FunctionComponent>
     </>
   )
 }
