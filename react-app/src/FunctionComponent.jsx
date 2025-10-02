@@ -29,6 +29,7 @@ export default function FunctionComponent(props) {
 
     useEffect( ()=>{
         componentDidMount()
+        return componentDidUnmount
     } , [])
 
     return (
