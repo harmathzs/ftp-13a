@@ -32,6 +32,10 @@ export default function FunctionComponent(props) {
         return componentDidUnmount
     } , [])
 
+    useEffect( ()=>{
+        componentDidUpdate(props, state)
+    } , [props,state] )
+
     return (
         <div className="card">
             <p><button onClick={handleIncClick}>Increase Number</button></p>
