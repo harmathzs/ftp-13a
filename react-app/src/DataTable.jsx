@@ -16,11 +16,15 @@ export default class DataTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Cerbona</td>
-                            <td>499</td>
-                        </tr>
+                        {this.state.fileContent.length>=1 && 
+                            this.state.fileContent.map(([id, name, price])=>(
+                                <tr key={id}>
+                                    <td>{id}</td>
+                                    <td>{name}</td>
+                                    <td>{price}</td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
             </div>
@@ -41,10 +45,12 @@ export default class DataTable extends React.Component {
             lines = lines.map(line=>line.trim().split(';').map(
                 cellStr=>cellStr.substring(1, cellStr.length-1)
             ) )
+            lines.shift()
+            lines.pop()
 
             console.log('lines', lines)
 
-            this.setState({fileContent})
+            this.setState({fileContent: lines})
         })
         .catch(console.warn)
     }
