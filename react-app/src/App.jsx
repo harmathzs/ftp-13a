@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <DataTable />
+      <DataTable filename="mueslis.csv" />
 
       <h1>Parent, but this is my child:</h1>
       <p><button onClick={handleToggleChildClick}>Toggle child existence</button></p>

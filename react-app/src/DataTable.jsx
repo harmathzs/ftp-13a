@@ -32,7 +32,7 @@ export default class DataTable extends React.Component {
     }
 
     componentDidMount() {
-        fetch('../src/backend/local/mueslis.csv')
+        fetch(`../src/backend/local/${this.props.filename}`)
         .then(res=>{
             console.log('res', res)
             return res.text()
