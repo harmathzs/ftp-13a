@@ -35,6 +35,15 @@ export default class DataTable extends React.Component {
         })
         .then(fileContent=>{
             console.log('fileContent', fileContent)
+            console.log('typeof fileContent', typeof fileContent) // string
+
+            let lines = fileContent.split('\n')
+            lines = lines.map(line=>line.trim().split(';').map(
+                cellStr=>cellStr.substring(1, cellStr.length-1)
+            ) )
+
+            console.log('lines', lines)
+
             this.setState({fileContent})
         })
         .catch(console.warn)
