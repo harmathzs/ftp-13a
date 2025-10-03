@@ -2,6 +2,8 @@ const express = require('express')
 const { Client } = require('basic-ftp')
 const app = express()
 
+app.use(express.json())
+
 app.get('/', (req, res)=>res.sendStatus(200))
 
 app.get('/ftp-list', async (req, res)=>{
@@ -29,14 +31,17 @@ app.get('/ftp-list', async (req, res)=>{
     res.status(statusCode).json(responseBody)
 })
 
-app.get('/ftp-file-content', async (req, res)=>{
+app.post('/ftp-file-content', async (req, res)=>{
     let statusCode = 200
     const responseBody = {
         data: null,
         error: null
     }
     try {
+        console.log('req.body', req.body)
         const {fileName} = req.body
+        
+        console.log('fileName', fileName)
 
         const ftpClient = new Client()
         await ftpClient.access({
@@ -47,22 +52,14 @@ app.get('/ftp-file-content', async (req, res)=>{
         })
         await ftpClient.cd('/')
 
-        const chunks = []
-        await ftpClient.downloadTo(
-            new require('stream').Writable({
-                write(chunk, _, callback) {
-                    chunks.push(chunk)
-                    callback()
-                }
-            }), fileName
-        )
-        console.log('chunks', chunks)
+        const ftpResponse = await ftpClient.downloadTo("local/"+fileName, fileName)
+        console.log('ftpResponse', ftpResponse)
 
         ftpClient.close()
-        responseBody.data = fileList
+        responseBody.data = ftpResponse
     } catch(e) {
         statusCode = 404
-        responseBody.error = e
+        responseBody.error = e.message
     }
     res.status(statusCode).json(responseBody)
 })
