@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import FunctionComponent from './FunctionComponent'
+import DataTable from './DataTable'
 
 function App() {
   const [showChild, setShowChild] = useState(true)
@@ -11,6 +12,8 @@ function App() {
 
   return (
     <>
+      <DataTable />
+
       <h1>Parent, but this is my child:</h1>
       <p><button onClick={handleToggleChildClick}>Toggle child existence</button></p>
       {showChild &&
